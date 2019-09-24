@@ -23,7 +23,7 @@ namespace BugTrackerProject.Models
         public virtual TicketPriority TicketPriorities { get; set; }
 
         public int TicketStatusId { get; set; }
-        public virtual TicketStatus TicketStatus { get; set; }
+        public virtual TicketStatus TicketStatuses { get; set; }
 
         public string OwnerUserId { get; set; }
         public virtual ApplicationUser OwnerUser { get; set; }
