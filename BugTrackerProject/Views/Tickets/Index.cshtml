@@ -3,20 +3,35 @@
 @{
     ViewBag.Title = "Index";
 }
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+@*<div class="row">
+        <div class="panel-heading">
+            <div class="col-md-8">
+                <h3>
+                    <i class="fa fa-table"></i>
+                    <span>My Tickets</span>
+                </h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <section class="col-md-12 col-md-push-0">
+            @Html.Partial("TicketPartialView")
+        </section>
+    </div>*@
 
-<h2>Index</h2>
 
-@*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
+
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.AssignedToUser.Email)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.OwnerUser.Email)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Project.Name)
         </th>
@@ -44,44 +59,47 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.AssignedToUser.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OwnerUser.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Project.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TicketPriorities.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TicketStatuses.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TicketTypes.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Created)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Updated)
-        </td>
-        @*<td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>*@
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AssignedToUser.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OwnerUser.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Project.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketPriorities.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketStatuses.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TicketTypes.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Updated)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>
+
+

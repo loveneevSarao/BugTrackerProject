@@ -1,0 +1,12 @@
+﻿@model PagedList.IPagedList<BugTrackerProject.Models.Ticket>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "MyTickets";
+}
+
+<h2>PageListMyTickets</h2>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

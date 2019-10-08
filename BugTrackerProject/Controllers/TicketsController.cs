@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using BugTrackerProject.Models;
 using BugTrackerProject.Models.HelperClasses;
 using Microsoft.AspNet.Identity;
+using PagedList;
+using System.Linq.Dynamic;
 
 namespace BugTrackerProject.Controllers
 {
@@ -23,37 +25,9 @@ namespace BugTrackerProject.Controllers
         }
 
         // GET: Tickets
-        //get the list of the tickets for the person who is signed in
         public ActionResult Index()
         {
-            if (User.IsInRole("Admin"))
-            {
-                return View(db.Tickets.ToList());
-            }
-            else if (User.IsInRole("ProjectManager"))
-            {
-                var userId = User.Identity.GetUserId();
-                var user = db.Users.Find(userId);
-                var assignedTickets = user.Tickets.ToList();
-                return View(assignedTickets);
-            }
-            else if (User.IsInRole("Developer"))
-            {
-                var userId = User.Identity.GetUserId();
-                var user = db.Users.Find(userId);
-                var assignedTickets = user.Tickets.ToList();
-                return View(assignedTickets);
-            }
-            else if (User.IsInRole("Submitter"))
-            {
-                var userId = User.Identity.GetUserId();
-                var user = db.Users.Find(userId);
-                var assignedTickets = user.Tickets.ToList();
-                return View(assignedTickets);
-            }
-            return View();
-            //var tickets = db.Tickets.Include(t => t.AssignedToUser).Include(t => t.OwnerUser).Include(t => t.Project).Include(t => t.TicketPriorities).Include(t => t.TicketStatuses).Include(t => t.TicketTypes);
-            //return View(tickets.ToList());
+            return View(db.Tickets.ToList());
         }
 
         // GET: Tickets/Details/5
@@ -184,5 +158,67 @@ namespace BugTrackerProject.Controllers
             }
             base.Dispose(disposing);
         }
+        //
+        public ActionResult ShowGrid()
+        {
+            var ticketResults = View(db.Tickets.ToList());
+            return ticketResults;
+        }
+        //load data
+        //public ActionResult LoadData()
+        //{
+        //    try
+        //    {
+        //        //creating instance of databaseContext class
+        //        using (ApplicationDbContext _context = new ApplicationDbContext())
+        //        {
+
+        //            var draw = Request.Form.GetValues("draw").FirstOrDefault();
+        //            var start = Request.Form.GetValues("start").FirstOrDefault();
+        //            var length = Request.Form.GetValues("length").FirstOrDefault();
+        //            var sortColumn = Request.Form.GetValues("columns[" + Request.Form.GetValues("order[0][column]").FirstOrDefault() + "][name]").FirstOrDefault();
+        //            var sortColumnDir = Request.Form.GetValues("order[0][dir]").FirstOrDefault();
+        //            var searchValue = Request.Form.GetValues("search[value]").FirstOrDefault();
+
+        //            //Paging Size
+        //            int pageSize = length != null ? Convert.ToInt32(length) : 0;
+        //            int skip = start != null ? Convert.ToInt32(start) : 0;
+        //            int recordsTotal = 0;
+
+        //            //Getting the data
+        //            var ticketsData = (from tempTicket in _context.Tickets
+        //                               select tempTicket);
+
+        //            //sorting
+        //            if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDir)))
+        //            {
+        //                ticketsData = ticketsData.OrderBy(sortColumn + " " + sortColumnDir);
+        //            }
+
+        //            //Search    
+        //            if (!string.IsNullOrEmpty(searchValue))
+        //            {
+        //                ticketsData = ticketsData.Where(t => t.Title == searchValue);
+        //            }
+
+        //            // total number of rows count
+        //            recordsTotal = ticketsData.Count();
+
+        //            //Paging     
+        //            var data = ticketsData.Skip(skip).Take(pageSize).ToList();
+
+        //            //Returning Json Data    
+        //            return Json(new { draw = draw, recordsFiltered = recordsTotal, recordsTotal = recordsTotal, data = data });
+
+        //        }
+
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //}
+
+
     }
 }
